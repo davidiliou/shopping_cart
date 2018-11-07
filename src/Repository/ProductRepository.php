@@ -21,7 +21,17 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findAll()
     {
-        return $this->createQueryBuilder('Product')->getQuery()->getResult();
+        return $this->createQueryBuilder('Product')->orderBy('Product.name','ASC')->getQuery()->getResult();
+    }
+
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('Product')
+            ->andWhere('Product.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**

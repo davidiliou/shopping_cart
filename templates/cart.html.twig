@@ -1,0 +1,55 @@
+{# templates/home.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to Symfony!</title>
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    </head>
+    <body>
+
+		<div class="container">
+		    <div class="col-md-12">
+		        <div class="center-block text-center">
+		            <h1>E-Commerce</h1>
+		            <p class="lead">Get Your Style On</p>
+		            Nombre de produits dans le panier : {{cart.getNbProducts}}
+		        </div>
+		        <div class="container">
+		        	<div class="row justify-content-md-center">
+		                <div class="col-12 menu-category">
+                            <table>
+                            	<th>
+                            		<td>
+                            			Nom produit
+                            		</td>
+                            		<td>
+                            			Prix Unitaire
+                            		</td>
+                            		<td>
+                            			Quantité
+                            		</td>
+                            	</th>
+                            	{% for product in cart.getListProducts %}
+	                            	<tr>
+	                            		<td>
+	                            			{{product.name}}
+	                            		</td>
+	                            		<td>
+	                            			{{product.price}}
+	                            		</td>
+	                            		<td>
+	                            			{{product.quantity}}
+	                            		</td>
+	                            	</tr>
+			            		{% endfor %}
+                            </table>
+                        </div>
+			        </div> 
+	            </div>
+		        <!--/container-->
+		    </div>
+		</div>
+        <script src="{{ asset('build/app.js') }}"></script>
+        <script src="{{ asset('build/product.js') }}"></script>
+    </body>
+</html>

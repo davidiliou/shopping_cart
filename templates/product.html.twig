@@ -1,0 +1,47 @@
+{# templates/home.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to Symfony!</title>
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    </head>
+    <body>
+
+		<div class="container">
+		    <div class="col-md-12">
+		        <div class="center-block text-center">
+		            <h1>E-Commerce</h1>
+		            <p class="lead">Get Your Style On</p>
+		            Nombre de produits dans le panier : {{cart.getNbProducts}}
+		        </div>
+		        <div class="container">
+		        	<div class="row justify-content-md-center">
+		                <div class="col-6 product menu-category">
+                            <div class="menu-category-name list-group-item active">{{ product.name | capitalize }}</div>
+                            <div class="product-image">
+                                <img class="product-image menu-item list-group-item" src="{{asset(product.ImageFilename,'products')}}">
+                            </div> 
+                            <div class="container">
+                            	<div class="row justify-content-around">
+	                            	<form class="form-inline" method="get" action="/addtocart">
+	                            		<div class="col-2"><button type="button" class="btn btn-secondary" id="less">-</button></div>
+	                            		<div class="col-2"><input type="text" name="quantity" value="1" size="2" id="quantity"/></div>
+	                            		<div class="col-2"><button type="button" class="btn btn-secondary" id="more">+</button></div>
+	                            		<div class="col-2"><button type="submit" class="btn btn-secondary"><i class="fas fa-shopping-cart"></i></button></div>
+	                            		<input type="hidden" name="id" value="{{ product.id }}">
+	                            	</form>
+	                            </div>
+                            </div>
+                            <div class="product_description">
+                            	{{ product.getDescription }}<span class="badge">{{ product.price }}€</span>
+                            </div>
+                        </div>
+			        </div> 
+	            </div>
+		        <!--/container-->
+		    </div>
+		</div>
+        <script src="{{ asset('build/app.js') }}"></script>
+        <script src="{{ asset('build/product.js') }}"></script>
+    </body>
+</html>

@@ -6,13 +6,36 @@
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     </head>
     <body>
-        <h1>{{ page_title }}</h1>
 
-        <ul id="navigation">
-            {% for product in products %}
-                <li><a href="{{ product.id }}">{{ product.name }}</a></li>
-            {% endfor %}
-        </ul>
+		<div class="container">
+		    <div class="col-md-12">
+		        <div class="center-block text-center">
+		            <h1>E-Commerce</h1>
+		            <p class="lead">Get Your Style On</p>
+		            Nombre de produits dans le panier : {{cart.getNbProducts}}
+		            
+		        </div>
+		        <div class="container">
+		        	<div class="row">
+	                	{% for product in products %}
+			                <div class="col-sm-6 col-md-4 col-xl-3 product menu-category">
+	                            <div class="menu-category-name list-group-item active">{{ product.name | capitalize }}</div>
+	                            <div class="product-image">
+	                                <img class="product-image menu-item list-group-item" src="{{asset(product.ImageFilename,'products')}}">
+	                            </div> 
+	                            <div class="product_description">
+	                            	{{ product.getShortDescription }}<span class="badge">{{ product.price }}€</span>
+	                            </div>
+	                            <div class="text-center">
+	                            	<a href="/product/{{ product.id }}" type="button" class="btn btn-secondary">Voir la fiche</a>
+	                            </div>
+	                        </div>
+			            {% endfor %}
+			        </div> 
+	            </div>
+		        <!--/container-->
+		    </div>
+		</div>
         <script src="{{ asset('build/app.js') }}"></script>
     </body>
 </html>

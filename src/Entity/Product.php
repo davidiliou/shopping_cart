@@ -31,6 +31,11 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image_filename;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,11 @@ class Product
         return $this->description;
     }
 
+    public function getShortDescription(): ?string
+    {
+        return (strlen($this->description) > 50 ? substr($this->description, 0,50).'...' : $this->description);
+    }
+
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -68,6 +78,18 @@ class Product
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->image_filename;
+    }
+
+    public function setImageFilename(string $image_filename): self
+    {
+        $this->image_filename = $image_filename;
 
         return $this;
     }

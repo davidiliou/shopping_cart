@@ -28,3 +28,8 @@ framework:
 
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu
+
+    assets:
+        packages :
+            products:
+                base_urls: 'https://s3.eu-west-3.amazonaws.com/testsymfonydiliou/images/'
