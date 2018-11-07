@@ -19,16 +19,48 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAll()
+    /**
+     * Return all products
+     *
+     * @return array List of product object
+     *
+     */
+    public function findAll(): array
     {
         return $this->createQueryBuilder('Product')->orderBy('Product.name','ASC')->getQuery()->getResult();
     }
 
-    public function findById($id)
+    /**
+     * find one product object from id
+     *
+     * @param int $id id of the product
+     *
+     * @return array List of product object
+     *
+     */
+    public function findById(int $id): array
     {
         return $this->createQueryBuilder('Product')
             ->andWhere('Product.id = :id')
             ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * find list of product object from cart
+     *
+     * @param Cart $cart cart object
+     *
+     * @return array List of product object
+     *
+     */
+    public function findFromCart($cart): array
+    {
+        return $this->createQueryBuilder('Product')
+            ->andWhere('Product.id IN (:arrayid)')
+            ->setParameter('arrayid', array_keys($cart->getListProducts()))
             ->getQuery()
             ->getResult()
         ;

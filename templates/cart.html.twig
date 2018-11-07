@@ -9,40 +9,80 @@
 
 		<div class="container">
 		    <div class="col-md-12">
-		        <div class="center-block text-center">
-		            <h1>E-Commerce</h1>
-		            <p class="lead">Get Your Style On</p>
-		            Nombre de produits dans le panier : {{cart.getNbProducts}}
-		        </div>
+		        {% include 'top.html.twig' %}
 		        <div class="container">
 		        	<div class="row justify-content-md-center">
-		                <div class="col-12 menu-category">
-                            <table>
-                            	<th>
-                            		<td>
-                            			Nom produit
-                            		</td>
-                            		<td>
-                            			Prix Unitaire
-                            		</td>
-                            		<td>
-                            			Quantité
-                            		</td>
-                            	</th>
-                            	{% for product in cart.getListProducts %}
-	                            	<tr>
-	                            		<td>
-	                            			{{product.name}}
-	                            		</td>
-	                            		<td>
-	                            			{{product.price}}
-	                            		</td>
-	                            		<td>
-	                            			{{product.quantity}}
-	                            		</td>
-	                            	</tr>
-			            		{% endfor %}
-                            </table>
+		                <div class="col-12">
+	                        <div class="table-responsive">
+
+	                            <table class="table">
+		                            <thead>
+		                            	<tr>
+		                            		<th>
+		                            			{% trans %}Product name{% endtrans %}
+		                            		</th>
+		                            		<th>
+		                            			{% trans %}Price{% endtrans %}
+		                            		</th>
+		                            		<th>
+		                            			{% trans %}Quantity{% endtrans %}
+		                            		</th>
+		                            		<th>
+		                            			{% trans %}Total{% endtrans %}
+		                            		</th>
+		                            		<th>
+		                            			{% trans %}Delete{% endtrans %}
+		                            		</th>
+		                            	</tr>
+		                            </thead>
+		                            <tbody>
+	                            	{% for product in list_product %}
+		                            	<tr>
+		                            		<td>
+		                            			{{product.name}}
+		                            		</td>
+		                            		<td>
+		                            			{{product.price}}
+		                            		</td>
+		                            		<td>
+		                            			<div class="row">
+			                            			<div><a href="{{ path('addtocart',{'id':product.id, 'quantity':-1, 'from':'cart'}) }}" type="button" class="btn-sm">-</a></div>
+			                            			{{cart.listProducts[product.id].quantity}}
+		                            				<div><a href="{{ path('addtocart',{'id':product.id, 'quantity':1, 'from':'cart'}) }}"  type="button" class="btn-sm">+</a></div>
+		                            			</div>
+		                            		</td>
+		                            		<td>
+		                            			{{product.price*cart.listProducts[product.id].quantity}}
+		                            		</td>
+		                            		<td>
+		                            			<a href="{{ path('deleteproduct',{'id':product.id}) }}"><i class="fa fas fa-trash"></i></a>
+		                            		</td>
+		                            	</tr>
+				            		{% endfor %}
+				            		</tbody>
+				            		<tfoot>
+				            			<tr>
+		                            		<td>
+		                            			{% trans %}Total{% endtrans %}
+		                            		</td>
+		                            		<td>
+		                            			&nbsp;
+		                            		</td>
+		                            		<td>
+		                            			&nbsp;
+		                            		</td>
+		                            		<td>
+		                            			{{cart.getprice}}
+		                            		</td>
+		                            		<td>
+		                            			&nbsp;
+		                            		</td>
+		                            	</tr>
+				            		</tfoot>
+				            		
+
+	                            </table>
+	                        </div>
                         </div>
 			        </div> 
 	            </div>
@@ -50,6 +90,6 @@
 		    </div>
 		</div>
         <script src="{{ asset('build/app.js') }}"></script>
-        <script src="{{ asset('build/product.js') }}"></script>
+        <script src="{{ asset('build/cart.js') }}"></script>
     </body>
 </html>

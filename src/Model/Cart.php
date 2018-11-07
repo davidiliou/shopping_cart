@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use App\Entity\Product;
-use Doctrine\ORM\EntityManagerInterface;
 
 class Cart
 {
@@ -32,32 +31,54 @@ class Cart
 
     public function getPrice(): int
     {
-        return $price;
+        return $this->price;
     }
 
+    
+    /**
+     * Add product to cart
+     *
+     * @param @param Product the product to delete
+     *
+     * @return void
+     *
+     */
+    public function removeProduct(Product $product): void
+    {        
+        $idProduct = $product->getId();
+        if (isset($this->listProducts[$idProduct])) {
+            $this->price -= $this->listProducts[$idProduct]['quantity']*$product->getPrice();
+            $this->nbProducts -= $this->listProducts[$idProduct]['quantity'];
+            unset($this->listProducts[$idProduct]);
+            return;
+        }
+
+        return;
+    }
 
     /**
      * Add product to cart
      *
-     * @param int $idProduct id of the product to add
+     * @param Product the product to add
      * @param int $quantity quantity of product to add
-     * @param boolean $add true if add "$quantity" products to cart, false to init quantity in cart to "$quantity"
      *
-     * @return array The cart modified
+     * @return void
      *
      * @throws \RuntimeException When product not in base
      */
-    public function modifyCountProduct(EntityManagerInterface $em, $idProduct, $quantity, $add): void
+    public function modifyCountProduct(Product $product, int $quantity): void
     {        
         $this->nbProducts += $quantity;
+        $idProduct = $product->getId();
         if (!isset($this->listProducts) || 0 == count($this->listProducts) || !isset($this->listProducts[$idProduct])) {
-            $product = $em->getRepository(Product::class)->findById($idProduct);
-            $this->listProducts[$product[0]->getId()] = array('product' => $product[0]->getName(), 'quantity' => $quantity, 'price' => $product[0]->getPrice());
+            $this->price += $quantity*$product->getPrice();
+            $this->listProducts[$idProduct] = array('product' => $product->getName(), 'quantity' => $quantity);
             return;
         }
 
         if (isset($this->listProducts[$idProduct])) {
-            $this->listProducts[$idProduct]['quantity'] = $add ? $this->listProducts[$idProduct]['quantity'] + $quantity : $quantity;
+            $this->price += $quantity*$product->getPrice();
+            $this->listProducts[$idProduct]['quantity'] += $quantity;
             return;
         }
 

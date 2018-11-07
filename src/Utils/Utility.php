@@ -31,14 +31,31 @@ class Utility
 	public static function saveCartInSession(string $strCart): void
 	{
 		$session = new Session();
-		//$session->start();
 		$session->set('cart', $strCart);
 	}
 
 	public static function getCartInSession(): string
 	{
 		$session = new Session();
-		//$session->start();
 		return $session->get('cart') ?? '{}';
+	}
+
+	public static function emptyCartInSession(): string
+	{
+		$session = new Session();
+		$session->set('cart', '{}');
+		return '{}';
+	}
+
+	public static function saveLocaleInSession(string $locale): void
+	{
+		$session = new Session();
+		$session->set('locale', $locale);
+	}
+
+	public static function getLocaleInSession(): string
+	{
+		$session = new Session();
+		return $session->get('locale') ?? 'en';
 	}
 }

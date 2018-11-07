@@ -9,11 +9,7 @@
 
 		<div class="container">
 		    <div class="col-md-12">
-		        <div class="center-block text-center">
-		            <h1>E-Commerce</h1>
-		            <p class="lead">Get Your Style On</p>
-		            Nombre de produits dans le panier : {{cart.getNbProducts}}
-		        </div>
+		        {% include 'top.html.twig' %}
 		        <div class="container">
 		        	<div class="row justify-content-md-center">
 		                <div class="col-6 product menu-category">
@@ -29,6 +25,7 @@
 	                            		<div class="col-2"><button type="button" class="btn btn-secondary" id="more">+</button></div>
 	                            		<div class="col-2"><button type="submit" class="btn btn-secondary"><i class="fas fa-shopping-cart"></i></button></div>
 	                            		<input type="hidden" name="id" value="{{ product.id }}">
+	                            		<input type="hidden" name="locale" value="{{ app.request.getLocale }}">
 	                            	</form>
 	                            </div>
                             </div>

@@ -1,0 +1,38 @@
+indexnolocale:
+  path: /
+  controller: App\Controller\HomeController::home
+index:
+  path: /{_locale}
+  controller: App\Controller\HomeController::home
+  requirements:
+    _locale: en|fr
+home:
+  path: /{_locale}/home
+  controller: App\Controller\HomeController::home
+  requirements:
+    _locale: en|fr
+product:
+  path: /{_locale}/product/{id}
+  controller: App\Controller\HomeController::product
+  requirements:
+    _locale: en|fr
+addtocart:
+  path: /addtocart
+  controller: App\Controller\HomeController::addProductToCart
+error:
+  path: /{_locale}/error
+  controller: App\Controller\HomeController::error
+  requirements:
+    _locale: en|fr
+cart:
+  path: /{_locale}/cart
+  controller: App\Controller\HomeController::cart
+  requirements:
+    _locale: en|fr
+emptycart:
+  path: /emptycart/{redirectto}
+  controller: App\Controller\HomeController::emptycart
+deleteproduct:
+  path: /deleteproduct/{id}
+  controller: App\Controller\HomeController::deleteproduct
+
