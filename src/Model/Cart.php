@@ -13,6 +13,7 @@ class Cart
 
     public function getNbProducts(): int
     {
+        if ($this->price < 0) $this->price = 0;
         return $this->nbProducts;
     }
 
@@ -31,6 +32,7 @@ class Cart
 
     public function getPrice(): int
     {
+        if ($this->price < 0) $this->price = 0;
         return $this->price;
     }
 
@@ -68,17 +70,31 @@ class Cart
      */
     public function modifyCountProduct(Product $product, int $quantity): void
     {        
-        $this->nbProducts += $quantity;
         $idProduct = $product->getId();
+        
+        if (isset($this->listProducts[$idProduct]) && $this->listProducts[$idProduct]['quantity']+$quantity < 0){
+            $this->removeProduct($product);
+            return;
+        }
+
+        if (!isset($this->listProducts[$idProduct]) && $quantity<1){
+            return;
+        }
+
         if (!isset($this->listProducts) || 0 == count($this->listProducts) || !isset($this->listProducts[$idProduct])) {
             $this->price += $quantity*$product->getPrice();
             $this->listProducts[$idProduct] = array('product' => $product->getName(), 'quantity' => $quantity);
+            $this->nbProducts += $quantity;
             return;
         }
 
         if (isset($this->listProducts[$idProduct])) {
             $this->price += $quantity*$product->getPrice();
             $this->listProducts[$idProduct]['quantity'] += $quantity;
+            $this->nbProducts += $quantity;
+            //si on arrive à 0
+            if (0 == $this->listProducts[$idProduct]['quantity'])
+                unset($this->listProducts[$idProduct]);
             return;
         }
 

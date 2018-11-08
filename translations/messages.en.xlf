@@ -1,0 +1,68 @@
+<!-- translations/messages.fr.xlf -->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+        	<trans-unit id="title">
+                <source>Shopping cheese</source>
+                <target>hopping cheese</target>
+            </trans-unit>
+            <trans-unit id="subtitle">
+                <source>Cheeses for everyone</source>
+                <target>Cheeses for everyone</target>
+            </trans-unit>
+            <trans-unit id="home">
+                <source>Home</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="cart">
+                <source>Cart</source>
+                <target>Cart</target>
+            </trans-unit>
+            <trans-unit id="empty_cart">
+                <source>Empty cart</source>
+                <target>Empty cart</target>
+            </trans-unit>
+            <trans-unit id="no_product">
+                <source>No product</source>
+                <target>No product</target>
+            </trans-unit>
+            <trans-unit id="nb_product_in_cart">
+                <source>Number of product in cart</source>
+                <target>Number of product in cart</target>
+            </trans-unit>
+            <trans-unit id="contact_admin">
+                <source>Please contact administrator</source>
+                <target>Please contact administrator</target>
+            </trans-unit>
+            <trans-unit id="error_occured">
+                <source>An error occured</source>
+                <target>An error occured</target>
+            </trans-unit>
+            <trans-unit id="see_details">
+                <source>Details</source>
+                <target>Details</target>
+            </trans-unit>
+            <trans-unit id="product_name">
+                <source>Product name</source>
+                <target>Product name</target>
+            </trans-unit>
+            <trans-unit id="price">
+                <source>Price</source>
+                <target>Price</target>
+            </trans-unit>
+            <trans-unit id="quantity">
+                <source>Quantity</source>
+                <target>Quantity</target>
+            </trans-unit>
+            <trans-unit id="total">
+                <source>Total</source>
+                <target>Total</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            
+        </body>
+    </file>
+</xliff>

@@ -50,12 +50,14 @@ class Utility
 	public static function saveLocaleInSession(string $locale): void
 	{
 		$session = new Session();
-		$session->set('locale', $locale);
+		$locale = in_array($locale, array('en','fr')) ? $locale : 'en';
+		$session->set('_locale', $locale);
 	}
 
 	public static function getLocaleInSession(): string
 	{
 		$session = new Session();
-		return $session->get('locale') ?? 'en';
+		//var_dump($session->get('_locale'));
+		return ($session->get('_locale') ?? 'en');
 	}
 }

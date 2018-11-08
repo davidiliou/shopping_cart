@@ -74,9 +74,9 @@ class HomeController extends AbstractController
     {
 
         $idProduct = $request->query->get('id');
-        $quantity   = $request->query->get('quantity');
-        $from   = $request->query->get('from') ?? 'home';
-        $locale   = $request->query->get('locale') ?? 'en';
+        $quantity = $request->query->get('quantity');
+        $from = $request->query->get('from') ?? 'home';
+        $locale = Utility::getLocaleInSession();
 
         if (!is_numeric($quantity) || !is_numeric($idProduct)) return $this->redirectToRoute('error',array('type'=>'wrong_params'));
         
@@ -88,7 +88,7 @@ class HomeController extends AbstractController
 
         if (0 == count($product)) return $this->redirectToRoute('error',array('type'=>'no_product'));
 
-        $cart->modifyCountProduct($em, $product[0], $quantity);
+        $cart->modifyCountProduct($product[0], $quantity);
 
         $jsonSerializedCart = Utility::serializeCartToJson($cart);
 
@@ -134,12 +134,14 @@ class HomeController extends AbstractController
     public function deleteproduct(EntityManagerInterface $em,Request $request): Response
     {
         $idProduct = $request->attributes->get('id');
+        $locale = Utility::getLocaleInSession();
+
         $product = $em->getRepository(Product::class)->findById($idProduct);
         $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
         $cart->removeProduct($product[0]);
         Utility::saveCartInSession(Utility::serializeCartToJson($cart));
         
-        return $this->redirectToRoute('cart');
+        return $this->redirectToRoute('cart.'.$locale);
     }
 
     /**
