@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b225c1de0eee9878815fe8614438800",
+    "content-hash": "45b4bfbd91ce5a7be31bcb4d93a46dd9",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5262,7 +5262,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5319,7 +5319,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",

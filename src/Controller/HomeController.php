@@ -22,11 +22,8 @@ class HomeController extends AbstractController
      *     "en": "/home"
      * }, name="home")
      */
-    public function home(EntityManagerInterface $em,Request $request): Response
+    public function home(EntityManagerInterface $em): Response
     {
-        $productName = $request->query->get('product_name');
-        $quantity   = $request->query->get('quantity');
-
         $products = $em->getRepository(Product::class)->findAll();
 
         $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
@@ -34,8 +31,6 @@ class HomeController extends AbstractController
         return $this->render('home.html.twig',[
         	'products' => $products,
             'cart' => $cart,
-            'product_name' => $productName,
-            'quantity' => $quantity,
             'currentpage' => 'home',
         	'page_title' => 'Home'
         ]);
@@ -183,5 +178,4 @@ class HomeController extends AbstractController
             'currentpage' => 'home'
         ]);
     }
-
 }

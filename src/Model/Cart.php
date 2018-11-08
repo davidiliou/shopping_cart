@@ -13,7 +13,7 @@ class Cart
 
     public function getNbProducts(): int
     {
-        if ($this->price < 0) $this->price = 0;
+        if ($this->nbProducts < 0) $this->nbProducts = 0;
         return $this->nbProducts;
     }
 

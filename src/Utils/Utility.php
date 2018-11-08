@@ -57,7 +57,6 @@ class Utility
 	public static function getLocaleInSession(): string
 	{
 		$session = new Session();
-		//var_dump($session->get('_locale'));
 		return ($session->get('_locale') ?? 'en');
 	}
 }
