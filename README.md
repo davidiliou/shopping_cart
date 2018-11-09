@@ -1,7 +1,7 @@
 
 # Shopping Cart
 
-Test project with a catalog of 12 productsin sqlite database and a shopping cart stored in session
+Test project with a catalog of 12 products in sqlite database and a shopping cart stored in session
 
 ## Getting Started
 
