@@ -89,7 +89,3 @@ http://localhost:8080/home
 To run php Unit tests :
 
     ./bin/phpunit
-
-## Authors
-
-* **David ILIOU** - *Technical test*
