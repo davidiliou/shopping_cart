@@ -81,8 +81,17 @@ Load fixtures 12 products
 
 
 Navigate on
-http://localhost:8080/home
+    
+    http://localhost:8080/home
 
+Export products in csv file :
+
+    php bin/console app:export-product-csv
+    
+Api point to get all users in json:
+    
+    http://localhost:8080/api/v1/users
+    
 
 ### Running the tests
 
