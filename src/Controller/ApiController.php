@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * Api controller.
  *
- * @Route("/api")
+ * @Route("/api/v1")
  */
 class ApiController extends Controller
 {
