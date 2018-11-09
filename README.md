@@ -94,7 +94,6 @@ Example http://192.168.1.109:8080/home
 
 To run php Unit tests :
 
-
     ./bin/phpunit
 
 ## Authors

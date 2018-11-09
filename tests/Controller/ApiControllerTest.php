@@ -15,10 +15,5 @@ class ApiControllerTest extends WebTestCase
 
         //test home page status code 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-		
-		/*$nbDivProduct = $crawler->filter('div[data-type="product"]');
-    	
-    	//test count product on home page
-    	$this->assertCount(12,$nbDivProduct);*/
     }
 }
