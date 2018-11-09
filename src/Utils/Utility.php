@@ -8,55 +8,43 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
-use Symfony\Component\HttpFoundation\Session\Session;
+
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Utility
 {
-	public static function serializeCartToJson(Cart $cart): string
+	public static function saveCartInSession(SessionInterface $session,Cart $cart): void
 	{
 		$encoders = array(new JsonEncoder());
         $normalizers = array(new PropertyNormalizer());
         $serializer = new Serializer($normalizers, $encoders);
-        return $serializer->serialize($cart, 'json');
+		$session->set('cart', $serializer->serialize($cart, 'json'));
+		return;
 	}
 
-	public static function unSerializeCartToJson(string $jsonCart): Cart
+	public static function getCartInSession(SessionInterface $session): cart
 	{
+		$jsonCart = $session->get('cart') ?? '{}';
 		$encoders = array(new JsonEncoder());
         $normalizers = array(new PropertyNormalizer());
         $serializer = new Serializer($normalizers, $encoders);
         return $serializer->deserialize($jsonCart, Cart::class, 'json');
 	}
 
-	public static function saveCartInSession(string $strCart): void
+	public static function emptyCartInSession(SessionInterface $session): string
 	{
-		$session = new Session();
-		$session->set('cart', $strCart);
-	}
-
-	public static function getCartInSession(): string
-	{
-		$session = new Session();
-		return $session->get('cart') ?? '{}';
-	}
-
-	public static function emptyCartInSession(): string
-	{
-		$session = new Session();
 		$session->set('cart', '{}');
 		return '{}';
 	}
 
-	public static function saveLocaleInSession(string $locale): void
+	public static function saveLocaleInSession(SessionInterface $session,string $locale): void
 	{
-		$session = new Session();
 		$locale = in_array($locale, array('en','fr')) ? $locale : 'en';
 		$session->set('_locale', $locale);
 	}
 
-	public static function getLocaleInSession(): string
+	public static function getLocaleInSession(SessionInterface $session): string
 	{
-		$session = new Session();
 		return ($session->get('_locale') ?? 'en');
 	}
 }

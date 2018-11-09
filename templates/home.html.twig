@@ -13,7 +13,7 @@
 		        	<div class="row">
 	                	{% if products %}
 		                	{% for product in products %}
-				                <div class="col-sm-6 col-md-4 col-xl-3 product menu-category">
+				                <div class="col-sm-6 col-md-4 col-xl-3 product menu-category" data-type="product">
 		                            <div class="menu-category-name list-group-item active">{{ product.name | capitalize }}</div>
 		                            <div class="product-image">
 		                                <img class="product-image menu-item list-group-item" src="{{asset(product.ImageFilename,'products')}}">

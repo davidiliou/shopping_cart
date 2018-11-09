@@ -69,6 +69,10 @@ Create sqlite database
 
     php bin/console doctrine:database:create
 
+Create database structure
+
+    php bin/console doctrine:schema:create
+
 Migrate ( create table )
 
     php bin/console doctrine:migrations:migrate

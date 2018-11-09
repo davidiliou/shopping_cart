@@ -11,11 +11,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 use App\Utils\Utility;
 
 class HomeController extends AbstractController
 {
+    
+    private $session;
+    
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
     /**
      * @Route({
      *     "fr": "/accueil",
@@ -26,7 +35,7 @@ class HomeController extends AbstractController
     {
         $products = $em->getRepository(Product::class)->findAll();
 
-        $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
+        $cart = Utility::getCartInSession($this->session);
 
         return $this->render('home.html.twig',[
         	'products' => $products,
@@ -52,7 +61,7 @@ class HomeController extends AbstractController
 
         if (0 == count($product)) return $this->redirectToRoute('error',array('type'=>'no_product'));
 
-        $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
+        $cart = Utility::getCartInSession($this->session);
 
         return $this->render('product.html.twig',[
         	'product' => $product[0],
@@ -71,11 +80,11 @@ class HomeController extends AbstractController
         $idProduct = $request->query->get('id');
         $quantity = $request->query->get('quantity');
         $from = $request->query->get('from') ?? 'home';
-        $locale = Utility::getLocaleInSession();
+        $locale = Utility::getLocaleInSession($this->session);
 
         if (!is_numeric($quantity) || !is_numeric($idProduct)) return $this->redirectToRoute('error',array('type'=>'wrong_params'));
         
-        $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
+        $cart = Utility::getCartInSession($this->session);
 
         if (!isset($idProduct)) return $this->redirectToRoute('error',array('type'=>'no_product'));
 
@@ -85,11 +94,9 @@ class HomeController extends AbstractController
 
         $cart->modifyCountProduct($product[0], $quantity);
 
-        $jsonSerializedCart = Utility::serializeCartToJson($cart);
+        Utility::saveCartInSession($this->session, $cart);
 
-        Utility::saveCartInSession($jsonSerializedCart);
-
-        return $this->redirectToRoute($from.'.'.$locale);//,array('product_name'=>$product[0]->getName(),'quantity'=>$quantity));
+        return $this->redirectToRoute($from.'.'.$locale);
     }
 
     /**
@@ -100,7 +107,7 @@ class HomeController extends AbstractController
      */
     public function cart(EntityManagerInterface $em): Response
     {
-        $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
+        $cart = Utility::getCartInSession($this->session);
 
         $listProducts = $em->getRepository(Product::class)->findFromCart($cart);
 
@@ -111,15 +118,14 @@ class HomeController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("/emptycart/{redirectto}/{locale}", name="emptycart")
+     * @Route("/emptycart/{redirectto}", name="emptycart")
      */
     public function emptycart(Request $request): Response
     {
-        $cart = Utility::emptyCartInSession();
+        Utility::saveCartInSession($this->session,new Cart());
         $redirectTo = $request->attributes->get('redirectto') ?? 'home';
-        $locale = $request->attributes->get('locale') ?? 'en';
+        $locale = Utility::getLocaleInSession($this->session);
         return $this->redirectToRoute($redirectTo.'.'.$locale);
     }
 
@@ -129,12 +135,12 @@ class HomeController extends AbstractController
     public function deleteproduct(EntityManagerInterface $em,Request $request): Response
     {
         $idProduct = $request->attributes->get('id');
-        $locale = Utility::getLocaleInSession();
+        $locale = Utility::getLocaleInSession($this->session);
 
         $product = $em->getRepository(Product::class)->findById($idProduct);
-        $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
+        $cart = Utility::getCartInSession($this->session);
         $cart->removeProduct($product[0]);
-        Utility::saveCartInSession(Utility::serializeCartToJson($cart));
+        Utility::saveCartInSession($this->session,$cart);
         
         return $this->redirectToRoute('cart.'.$locale);
     }
@@ -146,18 +152,17 @@ class HomeController extends AbstractController
     {
         $locale = $request->attributes->get('locale') ?? 'en';
 
-        Utility::saveLocaleInSession($locale);
+        Utility::saveLocaleInSession($this->session,$locale);
 
         return $this->redirectToRoute('home.'.$locale);
     }
-
 
     /**
      * @Route("/error", name="error")
      */
     public function error(Request $request,TranslatorInterface $translator): Response
     {
-        $cart = Utility::unSerializeCartToJson(Utility::getCartInSession());
+        $cart = Utility::getCartInSession($this->session);
 
         $typeError = $request->query->get('type');
         switch ($typeError) {

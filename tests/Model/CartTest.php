@@ -6,7 +6,6 @@ use App\Model\Cart;
 use App\Entity\Product;
 use PHPUnit\Framework\TestCase;
 
-
 class CartTest extends TestCase
 {
 	/**
