@@ -4,7 +4,7 @@
         <body>
         	<trans-unit id="title">
                 <source>Shopping cheese</source>
-                <target>hopping cheese</target>
+                <target>Shopping cheese</target>
             </trans-unit>
             <trans-unit id="subtitle">
                 <source>Cheeses for everyone</source>

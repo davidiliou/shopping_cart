@@ -11,6 +11,14 @@
 				<a class="nav-link" href="/emptycart/{{currentpage}}/{{app.request.getlocale}}">{% trans %}Empty cart{% endtrans %}</a>
 			</li>
 		</ul>
+		<ul class="navbar-nav ml-auto">
+		    <li class="nav-item">
+				<a class="nav-link" href="{{ app.request.getlocale!='en' ? path('changelocale',{'locale':'en'}) : ''}}">EN</a>
+		    </li>
+		    <li class="nav-item">
+				<a class="nav-link" href="{{ app.request.getlocale!='fr' ? path('changelocale',{'locale':'fr'}) : '' }}">FR</a>
+		    </li>
+		</ul>
 	</div>
 </nav>
 <div class="center-block text-center">
@@ -18,5 +26,3 @@
     <p class="lead">{% trans %}Cheeses for everyone{% endtrans %}</p>
     <p>{% trans %}Number of product in cart{% endtrans %} : {{cart.getNbProducts}}</p>
 </div>
-<a href="{{ path('changelocale',{'locale':'en','redirectto':app.request.attributes.get('_route')}) }}">EN</a>
-<a href="{{ path('changelocale',{'locale':'fr','redirectto':app.request.attributes.get('_route')}) }}">FR</a>

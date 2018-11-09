@@ -140,16 +140,15 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/changelocale/{redirectto}/{locale}", name="changelocale")
+     * @Route("/changelocale/{locale}", name="changelocale")
      */
     public function changeLocale(Request $request): Response
     {
-        $redirectTo = $request->attributes->get('redirectto') ?? 'home';
         $locale = $request->attributes->get('locale') ?? 'en';
 
         Utility::saveLocaleInSession($locale);
 
-        return $this->redirectToRoute($redirectTo.'.'.$locale);
+        return $this->redirectToRoute('home.'.$locale);
     }
 
 

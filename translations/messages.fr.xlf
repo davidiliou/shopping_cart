@@ -42,7 +42,6 @@
                 <source>Details</source>
                 <target>Voir la fiche</target>
             </trans-unit>
-
             <trans-unit id="product_name">
                 <source>Product name</source>
                 <target>Mon du produit</target>
