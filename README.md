@@ -86,9 +86,6 @@ Load fixtures 12 products
 Navigate on
 http://localhost:8080/home
 
-If build in virtual machine replace localhost by ip's virtual machine. 
-Example http://192.168.1.109:8080/home
-
 
 ### Running the tests
 
