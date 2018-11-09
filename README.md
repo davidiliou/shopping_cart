@@ -67,10 +67,9 @@ php bin/console doctrine:fixtures:load
 Navigate on
 http://localhost:8080/home
 ```
-
 If build in virtual machine replace localhost by ip's virtual machine ( example http://192.168.1.109:8080/home )
 
-## Running the tests
+### Running the tests
 
 To run php Unit tests :
 
